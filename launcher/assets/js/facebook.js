@@ -3,7 +3,8 @@ window.fbAsyncInit = function () {
     FB.init({
         appId: '357140426152444',
         xfbml: true,
-        version: 'v19.0'
+        version: 'v19.0',
+        status: true
     });
 };
 
@@ -24,6 +25,20 @@ function isFBConnected() {
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 resolve(response.authResponse.accessToken)
+            } else {
+                resolve(false)
+            }
+        });
+    })
+}
+
+const NETFLIXY_PAGE_ID = '275781865624176'
+
+function isPageLiked() {
+    return new Promise((resolve, _reject) => {
+        FB.api('/me/likes/' + NETFLIXY_PAGE_ID, function (response) {
+            if (response.data.length > 0) {
+                resolve(true)
             } else {
                 resolve(false)
             }

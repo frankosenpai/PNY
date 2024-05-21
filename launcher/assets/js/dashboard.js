@@ -72,6 +72,12 @@ window.onload = function () {
                     })
             })
         })
+
+        isPageLiked().then(liked => {
+            if (!liked) {
+                document.getElementById('facebook-page-container').style.display = 'block'
+            }
+        })
     }
 }
 
